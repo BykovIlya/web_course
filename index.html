@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tetris</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- my theme -->
+     <link href="css/cover.css" rel="stylesheet">
+
+</head>
+<body class="text-center">
+	<main role="main">						
+		<h1>Tetris</h1>
+   		<form action = "main.html" method = "get" id="inputName-form">
+    	    <div class="form-group">
+    			<label for="inputName" class="lead">Enter your name:</label></br>
+    			<input class="lead" style="color:#333333" placeholder="Username" id="inputName">
+ 			</div>
+ 			<button type="submit" class="btn btn-lg btn-secondary" onclick=" return store()">Submit</button>
+			<script>
+                function store() {
+                    if (document.getElementById('inputName').value === null) {
+                        alert("Enter the name!");
+                        return false;
+					} else localStorage.setItem('#tetris.userName', document.getElementById('inputName').value);
+                    return true;
+                }
+			</script>
+    	</form>
+		</br></br></br>
+		<h3> <a href="https://www.google.ru"> Go to google.ru</a></h3>
+    	<script type="js/my_scripts/tetris.js"></script>
+    	<script src="https://code.jquery.com/jquery-latest.js"></script>
+    	<script src="js/bootstrap.min.js"></script>
+	</main> 
+</body>
+</html>

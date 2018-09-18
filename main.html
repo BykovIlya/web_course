@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tetris</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- my theme -->
+     <link href="css/cover.css" rel="stylesheet">
+
+</head>
+<body class="text-center">
+	<div class="page-wrapper">
+		<div class="left-panel-wrapper"  align="left">
+			<div class="left-panel">
+				</br> </br> </br>
+				<h3>Your name: <span id = "outputName"></span></h3>
+				<h3>Your score: <span id = "score"></span></h3>
+				<h3>Speed: <span id = "speed"></span>x</h3>
+				<h3>Top scores:</h3> <font size ="4"><div id = "scores"></div></font>
+				<br><br>
+				<div>
+					<div style="float: left;">
+						<form action = "index.html" method = "get">
+							<button type="submit" class="btn btn-lg btn-secondary">Go home</button>
+						</form>
+					</div>
+					<div style="float: right;">
+						<form id = "pause">
+							<button type="submit" class="btn btn-lg btn-secondary" onclick="pause(); return false">Pause</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-wrapper">
+			<div class="content">
+				<h1>Tetris</h1>
+				<canvas id="tetris" width="240" height="400"></canvas>
+				<script src="js/my_scripts/tetris.js"></script>
+				<script src="https://code.jquery.com/jquery-latest.js"></script>
+				<script src="js/bootstrap.min.js"></script>
+			</div>
+		</div>
+
+		<div class="right-panel-wrapper" align="left">
+			<div class="right-panel">
+				</br> </br> </br>
+				<h3 align="left"> Keys for control:</h3>
+				<ul type="square">
+					<li>Left arrow - move the shape to the left</li>
+					<li>Right arrow - move the shape to the right</li>
+					<li>Spacebar / down arrow - "drop" the shape</li>
+					<li	>Up arrow - rotate the shape</li>
+				</ul>
+				</br> </br> </br></br> </br> </br></br>
+				<p>By Bykov Ilya, 6383</p>
+				<p>source on github :<a href="https://github.com/BykovIlya/web_course" target="_blank"> go to the link</a> </p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
