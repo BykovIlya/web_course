@@ -1,0 +1,54 @@
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* переопределение для кнопки */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: #333;      /*цвет надписи кнопки*/
+  text-shadow: none;        /*отменяем добавление тени*/
+  background-color: #fff;   /*цвет фона кнопки*/
+  border: .05rem solid #fff; /*устанавливаем стиль границ кнопки*/
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #333;
+}
+
+body {
+  display: flex;          
+  justify-content: center;  /* выравнивание над основной осью*/
+  color: #fff;
+
+}
+
+canvas:not(#figure) {
+  height: 80vh;           /* масштабируем */
+}
+
+canvas {
+  border: solid .2em #fff;  /* граница */
+}
+.page-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.left-panel-wrapper {
+  width: 300px;
+}
+.right-panel-wrapper {
+  width: 400px;
+}
+.content-wrapper {
+  width: calc(100% - 400px);
+  padding: 0 30px;
+}
+
+p,li {
+  font: 12pt times;
+}

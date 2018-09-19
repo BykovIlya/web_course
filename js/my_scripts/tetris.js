@@ -1,16 +1,26 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 context.scale(20,20);
-context.fillStyle = "#FFF";
+context.fillStyle = '#FFF';
 context.fillRect(0, 0, canvas.width, canvas.height);
 
+const  figure = document.getElementById('figure');
+const ctx = figure.getContext('2d');
+ctx.scale(20,20);
+ctx.fillStyle = '#FFF';
+ctx.fillRect(0, 0, ctx.width, ctx.height);
+
+let next = -1;
 let lastTime = 0;
 let counter = 0;
 let interval = 1500;
 let storedBestScores = [0, 0, 0, 0, 0];
 const area = create(12,20);
-
-//let bestScores = [0,0,0,0,0];
+let audioGameOver = new Audio(); audioGameOver.src = 'audio/gameover.mp3';
+let audioClearLine = new Audio(); audioClearLine.src = 'audio/clearLine.mp3';
+let audioLevelUp = new Audio(); audioLevelUp.src = 'audio/levelUp.mp3';
+const tetraminoes = '1234567';
+let round = tetraminoes[tetraminoes.length * Math.random() | 0];
 
 const colors = [
 	null,
@@ -48,8 +58,10 @@ function makeBestScores() {
     localStorage.setItem("bestScores", JSON.stringify(storedBestScores));
 }
 function start() {
-	const tetraminoes = '1234567';
-	gamer.tetramino = createTetramino(tetraminoes[tetraminoes.length * Math.random() | 0]);
+    gamer.tetramino = createTetramino(round);
+    round = tetraminoes[tetraminoes.length * Math.random() | 0];
+    clearFigure();
+    nextFigure(createTetramino(round));
 	gamer.goto.y = 0;
 	gamer.goto.x = (area[0].length / 2 | 0) - (gamer.tetramino[1].length / 2 | 0);
 	if (meeting(area,gamer)) {
@@ -58,7 +70,9 @@ function start() {
         	makeBestScores();
             tableScores();
         }
-		gamer.score = 0;
+
+        gameOver();
+        gamer.score = 0;
 		interval = 1500;
 		score();
 		speed();
@@ -177,6 +191,14 @@ function meeting(area, gamer) {
     return false;
 }
 
+function gameOver() {
+	audioGameOver.play();
+   	let answer = confirm("Game over. Do you want to play more?");
+   	if (answer === false) {
+   		document.location.href = "index.html";
+
+   	}
+}
 
 function down() {
     gamer.goto.y++;
@@ -229,16 +251,17 @@ function speed() {
 }
 
 function tableScores() {
-	if (localStorage.getItem("bestScores") === null) {
+    if (localStorage.getItem("bestScores") === null) {
         localStorage.setItem("bestScores", JSON.stringify(storedBestScores));
     }
     storedBestScores = JSON.parse(localStorage.getItem("bestScores"));
-	let e = document.getElementById('scores');
-	e.innerHTML = null;
-	for (let i = 0; i < storedBestScores.length; i++) {
-		e.innerHTML += (i + 1) + ':  ' + storedBestScores[i] + '<br>';
-	}
+    let e = document.getElementById('scores');
+    e.innerHTML = null;
+    for (let i = 0; i < storedBestScores.length; i++) {
+        e.innerHTML += (i + 1) + ':  ' + storedBestScores[i] + '<br>';
+    }
 }
+
 function name() {
 	document.getElementById('outputName').innerText = gamer.name;
 }
@@ -249,17 +272,72 @@ function clearLine() {
 		for (let j = 0; j < area[i].length; ++j) {
 			if (area[i][j] === 0) continue flag;
 		}
+        gamer.score += scoreIndex;
+        //	interval /= 1.1;
+        let old_interval = interval;
+        levelUp();
+        if (old_interval === interval) {
+            audioClearLine.play();
+        } else {
+            audioLevelUp.play();
+        }
 		const row = area.splice(i, 1)[0].fill(0);
 		area.unshift(row);
 		++i;
-		gamer.score += scoreIndex;
-		interval /= 1.1;
 		scoreIndex *= 2;
 	}
 }
 
+function levelUp() {
+    if (gamer.score >= 7000) {		// max level
+        interval = 100;
+    } else if (gamer.score >= 6000) {
+        interval = 200;
+    } else if (gamer.score >= 5000) {
+        interval = 300;
+    } else if (gamer.score >= 4000) {
+        interval = 400;
+    } else if (gamer.score >= 3500) {
+        interval = 500;
+    } else if (gamer.score >= 3000) {
+        interval = 600;
+    } else if (gamer.score >= 2500) {
+        interval = 700;
+    } else if (gamer.score >= 2000) {
+        interval = 800;
+    } else if (gamer.score >= 1500) {
+        interval = 900;
+    } else if (gamer.score >= 1000) {
+        interval = 1000;
+    } else if (gamer.score >= 800) {
+        interval = 1100;
+    } else if (gamer.score >= 600) {
+        interval = 1200;
+    } else if (gamer.score >= 400) {
+        interval = 1300;
+    } else if (gamer.score >= 200) {
+        interval = 1400;
+    }
+}
+
 function pause() {
 	alert("Pause");
+}
+
+function nextFigure(tetramino) {
+    tetramino.forEach((row,y)=> {
+        row.forEach((val,x) => {
+            if (val !== 0) {
+                ctx.fillStyle = colors[val];
+                ctx.fillRect(x+1.2, y+1, 1, 1);
+            }
+        });
+    });
+}
+
+function clearFigure() {
+	ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, 5, 5);
 }
 
 gamer.name = localStorage.getItem('#tetris.userName');
