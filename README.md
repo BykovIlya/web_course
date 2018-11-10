@@ -21,5 +21,6 @@
 
 ### Основные страницы проекта
 
+## Страница входа
 
-
+![Cтраница входа](https://github.com/BykovIlya/web_course_tetris/blob/master/lab1/Screenshot%20from%202018-11-09%2015-08-30.png)
