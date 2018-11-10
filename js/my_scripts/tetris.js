@@ -24,16 +24,13 @@ let round = tetraminoes[tetraminoes.length * Math.random() | 0];
 
 const colors = [
 	null,
-	'#050',
-	'#222',
-	'#355',
-	'#854',
-	'#433',
-	'#475',
-	'#353',
-	'#766',
-	'#999',
-	'#123',
+	'#D9B5FD',
+	'#BAF1FC',
+	'#FEFEAA',
+	'#B8FFB3',
+	'#FDBED1',
+	'#FFE7BD',
+	'#F8CFBE',
 ];
 
 const gamer = {
@@ -57,6 +54,7 @@ function makeBestScores() {
     });
     localStorage.setItem("bestScores", JSON.stringify(storedBestScores));
 }
+
 function start() {
     gamer.tetramino = createTetramino(round);
     round = tetraminoes[tetraminoes.length * Math.random() | 0];
@@ -123,7 +121,6 @@ function createTetramino(t) {
             [0, 7, 0, 0],
         ];
 	}
-
 }
 
 function drawTetramino(tetramino,goto) {
@@ -196,7 +193,6 @@ function gameOver() {
    	let answer = confirm("Game over. Do you want to play more?");
    	if (answer === false) {
    		document.location.href = "index.html";
-
    	}
 }
 
@@ -290,7 +286,7 @@ function clearLine() {
 
 function levelUp() {
     if (gamer.score >= 7000) {		// max level
-        interval = 100;
+        interval = 150;
     } else if (gamer.score >= 6000) {
         interval = 200;
     } else if (gamer.score >= 5000) {
